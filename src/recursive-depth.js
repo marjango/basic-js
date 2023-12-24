@@ -1,21 +1,19 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-/**
- * Implement class DepthCalculator with method calculateDepth
- * that calculates deoth of nested array
- * 
- * @example
- * 
- * const depthCalc = new DepthCalculator();
- * depthCalc.calculateDepth([1, 2, 3, 4, 5]) => 1
- * depthCalc.calculateDepth([1, 2, 3, [4, 5]]) => 2
- * depthCalc.calculateDepth([[[]]]) => 3
- *
- */
 class DepthCalculator {
-  calculateDepth(/* arr */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  calculateDepth(arr) {
+    // Check if the function is not implemented
+    if (!Array.isArray(arr)) {
+      throw new NotImplementedError('Not implemented');
+    }
+
+    // Base case: If the array does not contain nested arrays, return 1
+    if (!arr.some(Array.isArray)) {
+      return 1;
+    }
+
+    // Recursive case: Calculate the depth for each nested array and return the maximum depth
+    return 1 + Math.max(...arr.filter(Array.isArray).map(this.calculateDepth.bind(this)));
   }
 }
 
